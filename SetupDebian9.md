@@ -104,8 +104,9 @@ apt-get install -y gcc
 
 apt-get install -y build-essential
 ```
-go to folder where u want to install. In this case /opt
+Go to folder where u want to install. In this case /opt
 Перходим в папку установки - может быть произвольной. В данном варианте /opt
+
 ```
 cd /opt 
 mkdir nightscout
@@ -114,11 +115,10 @@ git clone https://github.com/nightscout/cgm-remote-monitor.git
 cd cgm-remote-monitor
 npm install --unsafe-perm
 ```
-environment/переменные среды
-if you want - add to global environment - nano /etc/environment
-or create you own file with environments - nano start.sh
-можно прописать в глобальных системных переменных nano /etc/environment 
-либо создаем файлик nano start.sh
+#### 6. Environment/Переменные среды
+
+if you want - add to global environment - nano /etc/environment or create you own file with environments - nano start.sh
+можно прописать в глобальных системных переменных nano /etc/environment либо создаем файлик nano start.sh
 ```
 #!/bin/bash
 export DISPLAY_UNITS="mg/dl"
