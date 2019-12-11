@@ -56,8 +56,9 @@ reboot
 ```
 #### 3. Setup Mongo/установка Mongo
 
-validate actual release of mongo https://www.mongodb.com/download-center/community . if the version of mongo is different of 4.2 - actualise it bellow
-смотрим актуальный релиз mongo https://www.mongodb.com/download-center/community и при наличии более свежей версии меняем значения ниже
+Validate actual release of mongo https://www.mongodb.com/download-center/community . If the version of mongo is different of 4.2 - actualise it bellow
+
+Cмотрим актуальный релиз mongo https://www.mongodb.com/download-center/community и при наличии более свежей версии меняем значения ниже
 ```
 curl https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
 nano /etc/apt/sources.list.d/mongodb-org-4.2.list
@@ -81,16 +82,18 @@ mongo
 > db.createUser({user: "username", pwd: "password", roles:["readWrite"]})
 > quit()
 ```
+#### 4. Import data from Heroku/Импорт данных из БД Heroku
 
-export database from existing database on mongo. adress, user, pass and port you can get from environment (heroku or azure) of existing NS
-**bold mongoexport must be run from your OS command shell, not in mongo shell.**
-Экспорт из существующей БД на монго. адрес, пользователь, пароль и порт берем из переменных среды на существующем heroku or azure
-**bold mongoexport запускается из командной строки ОС**
+export database from existing database on mongo. adress, user, pass and port you can get from environment (heroku or azure) of existing NS **bold mongoexport must be run from your OS command shell, not in mongo shell.**
+
+Экспорт из существующей БД на монго. адрес, пользователь, пароль и порт берем из переменных среды на существующем heroku or azure **bold mongoexport запускается из командной строки ОС**
+
 ```
 mongodump -h _some_adress_from_env.mlab.com --port _port_from_env_ -d _DB_name_from_env_  --username _user_from_env_ --password _password_from_env_
 mongorestore -d Nightscout dump/_DB_name_from_env_
 ```
-
+#### 5. Setup Nightscout/Установка Nightscout
+```
 apt-get -y install git
 
 apt-get -y install curl software-properties-common
@@ -100,25 +103,23 @@ apt-get install -y nodejs
 apt-get install -y gcc
 
 apt-get install -y build-essential
-
-#go to folder where u want to install. In this case /opt
-#Перходим в папку установки - может быть произвольной. В данном варианте /opt
-
+```
+go to folder where u want to install. In this case /opt
+Перходим в папку установки - может быть произвольной. В данном варианте /opt
+```
 cd /opt 
 mkdir nightscout
 cd nightscout
 git clone https://github.com/nightscout/cgm-remote-monitor.git
 cd cgm-remote-monitor
 npm install --unsafe-perm
-
-#environment
-#переменные среды
-
-#if you want - add to global environment - nano /etc/environment
-# or create you own file with environments - nano start.sh
-# можно прописать в глобальных системных переменных nano /etc/environment 
-# либо создаем файлик nano start.sh
-
+```
+environment/переменные среды
+if you want - add to global environment - nano /etc/environment
+or create you own file with environments - nano start.sh
+можно прописать в глобальных системных переменных nano /etc/environment 
+либо создаем файлик nano start.sh
+```
 #!/bin/bash
 export DISPLAY_UNITS="mg/dl"
 export MONGO_CONNECTION="mongodb://username:password@localhost:27017/Nightscout"
@@ -173,17 +174,19 @@ export SHOW_RAWBG=noise
 export THEME=colors
 
 node server.js     # start server
+```
+save file/ сохраняем `ctrl+x`
 
-#save file
-#сохраняем
+Запускаем Nightscout
 
+```
 chmod +x start.sh
 ./start.sh
+```
 
-
-#after start ./start.sh in few minutes you must see in loop
-#после запуска ./start.sh через несколько минут в цикле должно появится
-
+after start ./start.sh in few minutes you must see in loop
+после запуска ./start.sh через несколько минут в цикле должно появится
+```
 #reloading sandbox data
 #all buckets are empty
 #For the Basal plugin to function you need a treatment profile
@@ -193,9 +196,12 @@ chmod +x start.sh
 #tick 2019-11-28T10:28:28.794Z
 #Load Complete:
 #
+```
 
-#after that go to http://ip_of_debian:1337 - NS must open with api_secret dilog box
-#после чего можно пробовать заходить http://ip_of_debian:1337 - должен открыться НС и попросить api_secert 
+after that go to http://ip_of_debian:1337 - NS must open with api_secret dilog box
+после чего можно пробовать заходить http://ip_of_debian:1337 - должен открыться НС и попросить api_secert 
+
+----
 
 #installing autorun 
 # настраиваем автозапуск
