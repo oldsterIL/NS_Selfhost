@@ -105,6 +105,7 @@ apt-get install -y gcc
 apt-get install -y build-essential
 ```
 Go to folder where u want to install. In this case /opt
+
 Перходим в папку установки - может быть произвольной. В данном варианте /opt
 
 ```
@@ -117,8 +118,10 @@ npm install --unsafe-perm
 ```
 #### 6. Environment/Переменные среды
 
-if you want - add to global environment - nano /etc/environment or create you own file with environments - nano start.sh
-можно прописать в глобальных системных переменных nano /etc/environment либо создаем файлик nano start.sh
+If you want - add to global environment - nano /etc/environment or create you own file with environments - nano start.sh
+
+Можно прописать в глобальных системных переменных nano /etc/environment либо создаем файлик nano start.sh
+
 ```
 #!/bin/bash
 export DISPLAY_UNITS="mg/dl"
@@ -185,7 +188,9 @@ chmod +x start.sh
 ```
 
 after start ./start.sh in few minutes you must see in loop
+
 после запуска ./start.sh через несколько минут в цикле должно появится
+
 ```
 #reloading sandbox data
 #all buckets are empty
@@ -199,6 +204,7 @@ after start ./start.sh in few minutes you must see in loop
 ```
 
 after that go to http://ip_of_debian:1337 - NS must open with api_secret dilog box
+
 после чего можно пробовать заходить http://ip_of_debian:1337 - должен открыться НС и попросить api_secert 
 
 ----
