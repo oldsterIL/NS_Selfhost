@@ -1,10 +1,12 @@
-### Установка NightScout на Selfhost (Debian 9)
+### Установка NightScout на Selfhost (Debian 9 'Stretch') / Setup NightScout Debian 9 (Stretch)
+---
 #### Данное руководство не претендует на полноту и использование best practices, предварительно необходимо установить Debian 9, подключить его к интернету, обновить, пробросить HTTP, HTTPS, SSH
 #### Все манипуляции проводились под пользователем root. Необходимы минимальные навыки использования редактора nano
 
 #### requirements: install Debian 9, connect to internet, update, forward HTTP, HTTPS, SSH if nessesary. all of operation were made from root
+---
 
-1. Enable ssh for root if nessesary/разрешаем ssh для root если необходимо
+#### 1. Enable ssh for root if nessesary/разрешаем ssh для root если необходимо
   
 ```
 cd /etc/ssh
@@ -20,14 +22,14 @@ systemctl restart ssh
 ```
 #go to putty if u want
 #переходим для удобства в putty
-
+#### 2. Установка средств интеграции с гипервизором (не обязательно)
+```
 apt-get install sudo
 apt-get -y install curl
 apt-get -y install mc #not necessary  #не обязательно
-
-#for Hyper-V install integration services 
-#для Hyper-V ставим средства интеграции
-
+```
+##### Hyper-V install integration services / для Hyper-V ставим средства интеграции
+```
 nano /etc/initramfs-tools/modules
 
 #add strings
@@ -38,33 +40,31 @@ hv_storvsc
 hv_blkvsc
 hv_netvsc
 
-#save file
-#сохраняем
+save file/сохраняем `ctrl+x`
 
 sudo apt-get -y install hyperv-daemons
 update-initramfs -u
 reboot
-
-#for vmware 
-#для vmware
-
+```
+##### Vmware  tools/для vmware 
+```
 apt-get install -y open-vm-tools open-vm-tools-desktop
 vmware-user-suid-wrapper
 reboot
+```
+#### 3. Setup Mongo/установка Mongo
 
-#validate actual release of mongo https://www.mongodb.com/download-center/community . if the version of mongo is different of 4.2 - actualise it bellow
-#смотрим актуальный релиз mongo https://www.mongodb.com/download-center/community и при наличии более свежей версии меняем значения ниже
-
+validate actual release of mongo https://www.mongodb.com/download-center/community . if the version of mongo is different of 4.2 - actualise it bellow
+смотрим актуальный релиз mongo https://www.mongodb.com/download-center/community и при наличии более свежей версии меняем значения ниже
+```
 curl https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
 nano /etc/apt/sources.list.d/mongodb-org-4.2.list
-
-#add string
-#добавляем строку 
-
+```
+add string/добавляем строку 
+```
 deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.2 main
-
-#save file 
-#сохраняем
+```
+save file/сохраняем `ctrl+x`
 
 apt-get update
 apt-get -y install mongodb-org
