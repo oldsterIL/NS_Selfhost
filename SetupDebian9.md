@@ -106,7 +106,7 @@ apt-get install -y build-essential
 ```
 Go to folder where u want to install. In this case /opt
 
-Перходим в папку установки - может быть произвольной. В данном варианте /opt
+Переходим в папку установки - может быть произвольной. В данном варианте /opt
 
 ```
 cd /opt 
@@ -209,11 +209,12 @@ after that go to http://ip_of_debian:1337 - NS must open with api_secret dilog b
 
 ----
 
-#installing autorun 
-# настраиваем автозапуск
-  nano /etc/systemd/system/nightscout.service
-# add strings
-# вставляем строки
+#### 7. Installing autorun / Настраиваем автозапуск
+  
+  `nano /etc/systemd/system/nightscout.service`
+  
+add strings / вставляем строки
+```
 	[Unit]
 	Description=Nightscout Service      
 	After=network.target
@@ -225,33 +226,33 @@ after that go to http://ip_of_debian:1337 - NS must open with api_secret dilog b
 
 	[Install]
 	WantedBy=multi-user.target
+```
 
-#save file
-# cохраняем  
+save file /  cохраняем  `ctrl+x`
 
-#enable autorun
-# разрешаем автозапуск
-	systemctl daemon-reload
-	systemctl enable nightscout.service
-	systemctl start nightscout.service 
+enable autorun /  разрешаем автозапуск
+```
+systemctl daemon-reload
+systemctl enable nightscout.service
+systemctl start nightscout.service 
+```
 
-# verifying if the service is started
-# проверка, запущен ли сервис:
+verifying if the service is started / проверка, запущен ли сервис:
 
-   systemctl status nightscout.service 
+   `systemctl status nightscout.service`
  
-#installation and configuration a reverse proxy
-#установка и настройка обратного прокси
+#### 8. Installation and configuration a reverse proxy / Установка и настройка обратного прокси
 
+```
 	apt-get install nginx
 	systemctl enable nginx
+```
 
-#configuration nginx
-#конфиг ngnix
-	nano /etc/nginx/sites-available/default
-#add strings
-#добавляем строки
+configuration nginx / конфиг ngnix
+	`nano /etc/nginx/sites-available/default`
 
+add strings / добавляем строки
+```
 server {
    listen 80;
    server_name YOURS_INTERNET_URL.RU;
@@ -290,30 +291,33 @@ server {
 
 
 }
-#save ctrl+x
-#сохраняем ctrl+x
+```
 
-# get the certificate
-# получение сертификата
+save / сохраняем `ctrl+x`
+#### 9. Get the certificate / Получение сертификата
+	
+```	
 	sudo apt-get install certbot
 	certbot certonly --webroot --agree-tos --email youmail@mail.com -w /usr/share/nginx/html/ -d YOURS_INTERNET_URL.RU 
 	openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-#in configuration file
-# в конфиг ngnix 
-	nano /etc/nginx/sites-available/default
+```	
 
-#in section 'server' add the strings
-#в секцию server добавляем строки
+in configuration file / в конфиг ngnix 
+	`nano /etc/nginx/sites-available/default`
+
+in section 'server' add the strings/ в секцию server добавляем строки
+```
 	ssl_certificate     /etc/letsencrypt/live/YOURS_INTERNET_URL.RU/fullchain.pem;
 	ssl_certificate_key /etc/letsencrypt/live/YOURS_INTERNET_URL.RU/privkey.pem;
+```
 
-#restart nginx
-#перезапуск nginx
-	systemctl reload nginx
+restart nginx /перезапуск nginx
+	
+	`systemctl reload nginx`
 
-#check startup nginx
-#проверка запуска ngnix
-	systemctl status nginx
+check startup nginx / проверка запуска ngnix
+	
+	`systemctl status nginx`
 
-# NightScout must be available at https://YOURS_INTERNET_URL.RU
-# NightScout доступен по адресу https://YOURS_INTERNET_URL.RU
+### NightScout must be available at https://YOURS_INTERNET_URL.RU
+### NightScout доступен по адресу https://YOURS_INTERNET_URL.RU
