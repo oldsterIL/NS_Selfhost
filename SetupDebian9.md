@@ -3,7 +3,7 @@
 #### Данное руководство не претендует на полноту и использование best practices, предварительно необходимо установить Debian 9, подключить его к интернету, обновить, пробросить HTTP, HTTPS, SSH
 #### Все манипуляции проводились под пользователем root. Необходимы минимальные навыки использования редактора nano
 
-#### requirements: install Debian 9, connect to internet, update, forward HTTP, HTTPS, SSH if nessesary. all of operation were made from root
+#### requirements: install Debian 9, connect to internet, update, forward HTTP, HTTPS, SSH if nessesary. All of operation were made from root
 ---
 
 #### 1. Enable ssh for root if nessesary/разрешаем ssh для root если необходимо
@@ -15,33 +15,35 @@ nano sshd_config
 
 Add string `PermitRootLogin yes` / добавляем строку `PermitRootLogin yes`
 
-save file/сохраняем
-`ctrl+x`
+save file/сохраняем `ctrl+x`
+
 ```
 systemctl restart ssh
 ```
-#go to putty if u want
-#переходим для удобства в putty
+
+go to putty if u want/переходим для удобства в putty
+
 #### 2. Установка средств интеграции с гипервизором (не обязательно)
+
 ```
 apt-get install sudo
 apt-get -y install curl
 apt-get -y install mc #not necessary  #не обязательно
 ```
 ##### Hyper-V install integration services / для Hyper-V ставим средства интеграции
+
 ```
 nano /etc/initramfs-tools/modules
-
-#add strings
-#добавляем строки
-
+```
+add strings/добавляем строки
+```
 hv_vmbus
 hv_storvsc
 hv_blkvsc
 hv_netvsc
-
+```
 save file/сохраняем `ctrl+x`
-
+```
 sudo apt-get -y install hyperv-daemons
 update-initramfs -u
 reboot
@@ -65,28 +67,29 @@ add string/добавляем строку
 deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.2 main
 ```
 save file/сохраняем `ctrl+x`
-
+```
 apt-get update
 apt-get -y install mongodb-org
 systemctl enable mongod
 systemctl start mongod
+```
 
-#create DB - change username and pass
-#создаем пользователя БД - имя и пароль свои
-
+create DB - change username and pass/создаем пользователя БД - имя и пароль свои
+```
 mongo
 > use Nightscout
 > db.createUser({user: "username", pwd: "password", roles:["readWrite"]})
 > quit()
+```
 
-#export database from existing database on mongo. adress, user, pass and port you can get from environment (heroku or azure) of existing NS
-#mongoexport must be run from your OS command shell, not in mongo shell.
-#Экспорт из существующей БД на монго. адрес, пользователь, пароль и порт берем из переменных среды на существующем heroku or azure
-#mongoexport запускается из командной строки ОС
-
+export database from existing database on mongo. adress, user, pass and port you can get from environment (heroku or azure) of existing NS
+**bold mongoexport must be run from your OS command shell, not in mongo shell.**
+Экспорт из существующей БД на монго. адрес, пользователь, пароль и порт берем из переменных среды на существующем heroku or azure
+**bold mongoexport запускается из командной строки ОС**
+```
 mongodump -h _some_adress_from_env.mlab.com --port _port_from_env_ -d _DB_name_from_env_  --username _user_from_env_ --password _password_from_env_
 mongorestore -d Nightscout dump/_DB_name_from_env_
-
+```
 
 apt-get -y install git
 
