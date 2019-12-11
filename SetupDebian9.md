@@ -1,19 +1,20 @@
-### Установка NightScout на Selfhost (Debian 9 'Stretch') / Setup NightScout Debian 9 (Stretch)
+### Setup NightScout Debian 9 (Stretch) / Установка NightScout на Selfhost (Debian 9 'Stretch') / 
 ---
+#### requirements: install Debian 9, connect to internet, update, forward HTTP, HTTPS, SSH if nessesary. All of operation were made from root
+
 #### Данное руководство не претендует на полноту и использование best practices, предварительно необходимо установить Debian 9, подключить его к интернету, обновить, пробросить HTTP, HTTPS, SSH
 #### Все манипуляции проводились под пользователем root. Необходимы минимальные навыки использования редактора nano
 
-#### requirements: install Debian 9, connect to internet, update, forward HTTP, HTTPS, SSH if nessesary. All of operation were made from root
 ---
 
-#### 1. Enable ssh for root if nessesary/разрешаем ssh для root если необходимо
+#### 1. Enable ssh for root if nessesary / Разрешаем ssh для root если необходимо
   
 ```
 cd /etc/ssh
 nano sshd_config
 ```
 
-Add string `PermitRootLogin yes` / добавляем строку `PermitRootLogin yes`
+Add string / Добавляем строку `PermitRootLogin yes`
 
 save file/сохраняем `ctrl+x`
 
@@ -30,7 +31,7 @@ apt-get install sudo
 apt-get -y install curl
 apt-get -y install mc #not necessary  #не обязательно
 ```
-##### Hyper-V install integration services / для Hyper-V ставим средства интеграции
+##### Hyper-V install integration services / Для Hyper-V ставим средства интеграции
 
 ```
 nano /etc/initramfs-tools/modules
@@ -48,13 +49,13 @@ sudo apt-get -y install hyperv-daemons
 update-initramfs -u
 reboot
 ```
-##### Vmware  tools/для vmware 
+##### Vmware  tools / Для vmware 
 ```
 apt-get install -y open-vm-tools open-vm-tools-desktop
 vmware-user-suid-wrapper
 reboot
 ```
-#### 3. Setup Mongo/установка Mongo
+#### 3. Setup Mongo / Установка Mongo
 
 Validate actual release of mongo https://www.mongodb.com/download-center/community . If the version of mongo is different of 4.2 - actualise it bellow
 
@@ -92,7 +93,7 @@ export database from existing database on mongo. adress, user, pass and port you
 mongodump -h _some_adress_from_env.mlab.com --port _port_from_env_ -d _DB_name_from_env_  --username _user_from_env_ --password _password_from_env_
 mongorestore -d Nightscout dump/_DB_name_from_env_
 ```
-#### 5. Setup Nightscout/Установка Nightscout
+#### 5. Setup Nightscout / Установка Nightscout
 ```
 apt-get -y install git
 
@@ -116,7 +117,7 @@ git clone https://github.com/nightscout/cgm-remote-monitor.git
 cd cgm-remote-monitor
 npm install --unsafe-perm
 ```
-#### 6. Environment/Переменные среды
+#### 6. Environment / Переменные среды
 
 If you want - add to global environment - nano /etc/environment or create you own file with environments - nano start.sh
 
@@ -191,17 +192,17 @@ after start ./start.sh in few minutes you must see in loop
 
 после запуска ./start.sh через несколько минут в цикле должно появится
 
-```
-#reloading sandbox data
-#all buckets are empty
-#For the Basal plugin to function you need a treatment profile
-#OpenAPS hasn't reported a loop yet
-#WS: running websocket.update
-#delta calculation indicates no new data is present
-#tick 2019-11-28T10:28:28.794Z
-#Load Complete:
-#
-```
+>
+>#reloading sandbox data
+>#all buckets are empty
+>#For the Basal plugin to function you need a treatment profile
+>#OpenAPS hasn't reported a loop yet
+>#WS: running websocket.update
+>#delta calculation indicates no new data is present
+>#tick 2019-11-28T10:28:28.794Z
+>#Load Complete:
+>#
+>
 
 after that go to http://ip_of_debian:1337 - NS must open with api_secret dilog box
 
@@ -294,6 +295,7 @@ server {
 ```
 
 save / сохраняем `ctrl+x`
+
 #### 9. Get the certificate / Получение сертификата
 	
 ```	
