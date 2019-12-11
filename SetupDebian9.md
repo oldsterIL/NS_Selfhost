@@ -192,17 +192,23 @@ after start ./start.sh in few minutes you must see in loop
 
 после запуска ./start.sh через несколько минут в цикле должно появится
 
->
+
 >#reloading sandbox data
+
 >#all buckets are empty
+
 >#For the Basal plugin to function you need a treatment profile
+
 >#OpenAPS hasn't reported a loop yet
+
 >#WS: running websocket.update
+
 >#delta calculation indicates no new data is present
+
 >#tick 2019-11-28T10:28:28.794Z
+
 >#Load Complete:
->#
->
+
 
 after that go to http://ip_of_debian:1337 - NS must open with api_secret dilog box
 
@@ -216,17 +222,15 @@ after that go to http://ip_of_debian:1337 - NS must open with api_secret dilog b
   
 add strings / вставляем строки
 ```
-	[Unit]
-	Description=Nightscout Service      
-	After=network.target
-
-	[Service]
-	Type=simple
-	WorkingDirectory=/opt/nightscout/cgm-remote-monitor
-	ExecStart=/opt/nightscout/cgm-remote-monitor/start.sh
-
-	[Install]
-	WantedBy=multi-user.target
+[Unit]
+Description=Nightscout Service      
+After=network.target
+[Service]
+Type=simple
+WorkingDirectory=/opt/nightscout/cgm-remote-monitor
+ExecStart=/opt/nightscout/cgm-remote-monitor/start.sh
+[Install]
+WantedBy=multi-user.target
 ```
 
 save file /  cохраняем  `ctrl+x`
@@ -240,19 +244,21 @@ systemctl start nightscout.service
 
 verifying if the service is started / проверка, запущен ли сервис:
 
-   `systemctl status nightscout.service`
+`systemctl status nightscout.service`
  
 #### 8. Installation and configuration a reverse proxy / Установка и настройка обратного прокси
 
 ```
-	apt-get install nginx
-	systemctl enable nginx
+apt-get install nginx
+systemctl enable nginx
 ```
 
 configuration nginx / конфиг ngnix
-	`nano /etc/nginx/sites-available/default`
+
+`nano /etc/nginx/sites-available/default`
 
 add strings / добавляем строки
+
 ```
 server {
    listen 80;
@@ -299,27 +305,28 @@ save / сохраняем `ctrl+x`
 #### 9. Get the certificate / Получение сертификата
 	
 ```	
-	sudo apt-get install certbot
-	certbot certonly --webroot --agree-tos --email youmail@mail.com -w /usr/share/nginx/html/ -d YOURS_INTERNET_URL.RU 
-	openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+sudo apt-get install certbot
+certbot certonly --webroot --agree-tos --email youmail@mail.com -w /usr/share/nginx/html/ -d YOURS_INTERNET_URL.RU 
+openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 ```	
 
 in configuration file / в конфиг ngnix 
-	`nano /etc/nginx/sites-available/default`
+`nano /etc/nginx/sites-available/default`
 
 in section 'server' add the strings/ в секцию server добавляем строки
+
 ```
-	ssl_certificate     /etc/letsencrypt/live/YOURS_INTERNET_URL.RU/fullchain.pem;
-	ssl_certificate_key /etc/letsencrypt/live/YOURS_INTERNET_URL.RU/privkey.pem;
+ssl_certificate     /etc/letsencrypt/live/YOURS_INTERNET_URL.RU/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/YOURS_INTERNET_URL.RU/privkey.pem;
 ```
 
 restart nginx /перезапуск nginx
 	
-	`systemctl reload nginx`
+`systemctl reload nginx`
 
 check startup nginx / проверка запуска ngnix
 	
-	`systemctl status nginx`
+`systemctl status nginx`
 
 ### NightScout must be available at https://YOURS_INTERNET_URL.RU
 ### NightScout доступен по адресу https://YOURS_INTERNET_URL.RU
