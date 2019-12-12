@@ -85,9 +85,9 @@ mongo
 ```
 #### 4. Import data from Heroku/Импорт данных из БД Heroku
 
-export database from existing database on mongo. adress, user, pass and port you can get from environment (heroku or azure) of existing NS **bold mongoexport must be run from your OS command shell, not in mongo shell.**
+export database from existing database on mongo. adress, user, pass and port you can get from environment (heroku or azure) of existing NS **mongoexport must be run from your OS command shell, not in mongo shell.**
 
-Экспорт из существующей БД на монго. адрес, пользователь, пароль и порт берем из переменных среды на существующем heroku or azure **bold mongoexport запускается из командной строки ОС**
+Экспорт из существующей БД на монго. адрес, пользователь, пароль и порт берем из переменных среды на существующем heroku or azure **mongoexport запускается из командной строки ОС**
 
 ```
 mongodump -h _some_adress_from_env.mlab.com --port _port_from_env_ -d _DB_name_from_env_  --username _user_from_env_ --password _password_from_env_
