@@ -1,4 +1,4 @@
-### Setup NightScout Debian 9 (Stretch) / Установка NightScout на Selfhost (Debian 9 'Stretch') / 
+### Setup NightScout Debian 9 (Stretch) / Установка NightScout на Selfhost (Debian 9 'Stretch') 
 ---
 #### Requirements: install Debian 9, connect to internet, update, forward HTTP, HTTPS, SSH if nessesary. All of operation were made from root
 
