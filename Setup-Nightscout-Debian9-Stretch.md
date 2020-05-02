@@ -261,13 +261,9 @@ add strings / добавляем строки
 
 ```
 server {
-   listen 80;
-   server_name YOURS_INTERNET_URL.RU;
-   root /usr/share/nginx/html;
-   location ~ /.well-known {
-               allow all;
-   }
-  } 
+    listen 80;
+    return 301 https://$host:443$request_uri;
+}
 server {
    listen 443 ssl;
    server_name YOURS_INTERNET_URL.RU;
