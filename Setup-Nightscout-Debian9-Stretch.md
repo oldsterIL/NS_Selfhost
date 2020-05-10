@@ -126,7 +126,7 @@ If you want - add to global environment - nano /etc/environment or create you ow
 ```
 #!/bin/bash
 export DISPLAY_UNITS="mg/dl"
-export MONGO_CONNECTION="mongodb://username:password@localhost:27017/Nightscout"
+export MONGO_CONNECTION="mongodb://username:password@localhost:27017/ИмяБД"
 export PORT=1337
 export API_SECRET="Api_Secret_min_12_symbols"
 export PUMP_FIELDS="reservoir battery status"
